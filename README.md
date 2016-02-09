@@ -25,3 +25,7 @@ Add the following to `Monokai.tmTheme` to enable background colors for embedded 
 			<string>#32332B</string>
 		</dict>
 	</dict>
+
+Which results in:
+
+![](http://i.imgur.com/khqfbSq.png)
