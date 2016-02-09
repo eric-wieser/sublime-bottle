@@ -1,0 +1,42 @@
+%YAML 1.2
+---
+name: HTML (Bottle)
+file_extensions:
+  - tpl
+scope: text.html.bottle
+contexts:
+  main:
+    - match: ''
+      push: 'scope:text.html.basic'
+      with_prototype:
+        - match: "^\\s+(%)"
+          captures:
+            1: punctuation.section.embedded.python
+          push:
+            - meta_scope: source.python.embedded.html
+            - match: "^"
+              pop: true
+            - include: python-block
+
+        - match: "<%"
+          captures:
+            0: punctuation.section.embedded.python
+          push:
+            - meta_scope: source.python.embedded.html
+            - match: "%>"
+              scope: punctuation.section.embedded.python
+              pop: true
+            - include: python-block
+        - match: "{{"
+          captures:
+            0: punctuation.section.embedded.expression.python
+          push:
+            - meta_scope: source.python.embedded.html
+            - match: "}}"
+              scope: punctuation.section.embedded.python
+              pop: true
+            - include: "Python.sublime-syntax"
+  python-block:
+    - match: "end"
+      scope: keyword.control.flow.python
+    - include: "Python.sublime-syntax"
