@@ -1,0 +1,12 @@
+<!-- See http://www.sublimetext.com/docs/snippets for more information -->
+<snippet>
+    <tabTrigger>@route</tabTrigger>
+    <scope>source.python</scope>
+    <description>Bottle route</description>
+
+	<content><![CDATA[
+@route('${1:/path/}')
+def show${1/(<[^>]+>\/?)|(\/)/(?2_)/g}(${1/<([^:>]+)[^>]*(?:(>.*(?=<))|>)|./$1(?2, )/g}):
+	${0:pass}
+]]></content>
+</snippet>
