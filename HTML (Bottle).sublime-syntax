@@ -9,7 +9,11 @@ contexts:
     - match: ''
       push: 'scope:text.html.basic'
       with_prototype:
-        - match: "^\\s+(%)"
+        - match: "(\\\\\\\\)\n"
+          captures:
+            1: punctuation.separator.continuation.line.bottle
+          scope: source.python.embedded.html
+        - match: "^\\s*(%)"
           captures:
             1: punctuation.section.embedded.python
           push:
@@ -27,15 +31,15 @@ contexts:
               scope: punctuation.section.embedded.python
               pop: true
             - include: python-block
-        - match: "{{"
+        - match: "{{!?"
           captures:
             0: punctuation.section.embedded.expression.python
           push:
             - meta_scope: source.python.embedded.html
             - match: "}}"
-              scope: punctuation.section.embedded.python
+              scope: punctuation.section.embedded.expression.python
               pop: true
-            - include: "Python.sublime-syntax"
+            - include: scope:source.python#expressions
   python-block:
     - match: "end"
       scope: keyword.control.flow.python
